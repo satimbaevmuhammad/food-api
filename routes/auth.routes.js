@@ -70,34 +70,7 @@ router.post("/register", register);
  *       200:
  *         description: Email verified successfully
  */
-router.post("/verify", verifyEmail);
 
-/**
- * @swagger
- * /api/auth/login:
- *   post:
- *     summary: Login user and get JWT token
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 example: test@gmail.com
- *               password:
- *                 type: string
- *                 example: 12345678
- *     responses:
- *       200:
- *         description: JWT token returned
- */
 router.post("/login", login);
 
 /**
@@ -122,38 +95,7 @@ router.post("/login", login);
  *       200:
  *         description: Reset code sent to email
  */
-router.post("/forgot", forgotPassword);
 
-/**
- * @swagger
- * /api/auth/reset:
- *   post:
- *     summary: Reset password using email code
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - code
- *               - newPassword
- *             properties:
- *               email:
- *                 type: string
- *                 example: test@gmail.com
- *               code:
- *                 type: string
- *                 example: 123456
- *               newPassword:
- *                 type: string
- *                 example: newpass123
- *     responses:
- *       200:
- *         description: Password successfully updated
- */
-router.post("/reset", resetPassword);
+
 
 export default router;

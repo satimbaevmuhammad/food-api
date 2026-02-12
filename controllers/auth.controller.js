@@ -15,21 +15,17 @@ export const register = asyncHandler(async (req, res) => {
   }
 
   const hashed = await bcrypt.hash(password, 10);
-  const code = generateCode();
 
-  await User.create({
+  const user = await User.create({
     email,
-    password: hashed,
-    verificationCode: code
+    password: hashed
   });
 
-  // 🔥 AVVAL RESPONSE
-  res.status(201).json({ message: "Registered. Check email" });
-
-  // 🔥 KEYIN EMAIL (background)
-  sendEmail(email, "Verify email", `Your code: ${code}`)
-    .catch(err => console.error("Email error:", err.message));
+  res.status(201).json({
+    token: generateToken(user._id)
+  });
 });
+
 
 
 // VERIFY EMAIL
@@ -53,7 +49,6 @@ export const login = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
-  if (!user.isVerified) throw new Error("Verify email first");
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) throw new Error("Wrong password");
