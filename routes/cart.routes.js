@@ -8,16 +8,22 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: Cart
+ *   description: Shopping cart management
  */
 
 /**
  * @swagger
  * /api/cart:
  *   get:
- *     summary: Get user cart
+ *     summary: Get logged-in user's cart
  *     tags: [Cart]
  *     security:
  *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User cart returned
+ *       401:
+ *         description: Unauthorized
  */
 router.get("/", protect, getCart);
 
@@ -35,14 +41,22 @@ router.get("/", protect, getCart);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - productId
+ *               - quantity
  *             properties:
  *               productId:
  *                 type: string
+ *                 example: 65f8d7b12abc123456789012
  *               quantity:
  *                 type: number
+ *                 example: 2
+ *     responses:
+ *       200:
+ *         description: Updated cart
+ *       401:
+ *         description: Unauthorized
  */
 router.post("/add", protect, addToCart);
-
-
 
 export default router;
