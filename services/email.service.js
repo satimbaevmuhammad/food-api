@@ -1,19 +1,13 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { config } from "../config/env.js";
 
-export const sendEmail = async (to, subject, text) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: config.EMAIL,
-      pass: config.EMAIL_PASS
-    }
-  });
+const resend = new Resend(config.RESEND_API_KEY);
 
-  await transporter.sendMail({
-    from: config.EMAIL,
+export const sendEmail = async (to, subject, text) => {
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
     to,
     subject,
-    text
+    text,
   });
 };
