@@ -17,6 +17,13 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.use("/api/categories", categoryRoutes);
+app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+
+
 // swagger (app DAN KEYIN!)
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
