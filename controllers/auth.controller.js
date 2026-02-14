@@ -38,3 +38,15 @@ export const login = asyncHandler(async (req, res) => {
     token: generateToken(user._id)
   });
 });
+
+
+// GET ME (profile)
+export const getMe = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select("-password");
+
+  res.json({
+    id: user._id,
+    email: user.email,
+    createdAt: user.createdAt
+  });
+});
